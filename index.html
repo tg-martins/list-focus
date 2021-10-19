@@ -12,92 +12,61 @@
       }
       ul {
         margin: 2em;
-        padding: 0;
-        clear: both;
       }
+
       li {
-        margin: 0;
-        padding: 0;
+        display: inline-block;
         list-style: none;
-        float: left;
-        display: block;
+        width: 7em;
+        margin: 0.8em;
       }
-
-      li {
-        width: calc(100% / 9);
-      }
-      li:nth-child(9n + 1):nth-last-child(1) {
-        width: 100%;
-      }
-      li:nth-child(9n + 1):nth-last-child(1) ~ li {
-        width: 100%;
-      }
-      li:nth-child(9n + 1):nth-last-child(2) {
-        width: 50%;
-      }
-      li:nth-child(9n + 1):nth-last-child(2) ~ li {
-        width: 50%;
-      }
-      li:nth-child(9n + 1):nth-last-child(3) {
-        width: calc(100% / 9);
-      }
-      li:nth-child(9n + 1):nth-last-child(3) ~ li {
-        width: calc(100% / 9);
-      }
-
-      button {
+      a {
         text-align: center;
         text-decoration: none;
         font-size: 30px;
         display: inline-block;
-        background: white;
         border: none;
         margin: 5px;
         padding: 20px 0;
         width: 4em;
         height: 4em;
         transition: 300ms;
+        color: black;
+        background: white;
       }
-      button:focus {
-        background: black;
+      a:focus {
+        background: black !important;
         color: white;
       }
     </style>
   </head>
   <body>
-    <ul id="list" data-amount="9" data-element="button">
-      <li><button>0</button></li>
-      <li><button>1</button></li>
-      <li><button>2</button></li>
-      <li><button>3</button></li>
-      <li><button>4</button></li>
-      <li><button>5</button></li>
-      <li><button>6</button></li>
-      <li><button>7</button></li>
-      <li><button>8</button></li>
-      <li><button>9</button></li>
-      <li><button>10</button></li>
-      <li><button>11</button></li>
-      <li><button>12</button></li>
-      <li><button>13</button></li>
-      <li><button>14</button></li>
-      <li><button>15</button></li>
-      <li><button>16</button></li>
-      <li><button>17</button></li>
-      <li><button>18</button></li>
-      <li><button>19</button></li>
-      <li><button>20</button></li>
-      <li><button>21</button></li>
-      <li><button>22</button></li>
-      <li><button>23</button></li>
-      <li><button>24</button></li>
-      <li><button>25</button></li>
-      <li><button>26</button></li>
-      <li><button>27</button></li>
-      <li><button>28</button></li>
-      <li><button>29</button></li>
-      <li><button>30</button></li>
-      <li><button>31</button></li>
+    <ul id="list" data-element="a">
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">6</a></li>
+      <li><a href="#">7</a></li>
+      <li><a href="#">8</a></li>
+      <li><a href="#">9</a></li>
+      <li><a href="#">10</a></li>
+      <li><a href="#">11</a></li>
+      <li><a href="#">12</a></li>
+      <li><a href="#">13</a></li>
+      <li><a href="#">14</a></li>
+      <li><a href="#">15</a></li>
+      <li><a href="#">16</a></li>
+      <li><a href="#">17</a></li>
+      <li><a href="#">18</a></li>
+      <li><a href="#">19</a></li>
+      <li><a href="#">20</a></li>
+      <li><a href="#">21</a></li>
+      <li><a href="#">22</a></li>
+      <li><a href="#">23</a></li>
+      <li><a href="#">24</a></li>
+      <li><a href="#">25</a></li>
     </ul>
 
     <script>
@@ -108,7 +77,7 @@
             ? document.querySelector(listelement)
             : listelement;
         if (!this.list) {
-          throw Error("O item da lista não foi encontrado");
+          console.log("O item da lista não foi encontrado");
         }
         this.setcodes = function (amount) {
           that.codes = {
@@ -175,7 +144,8 @@
       };
       Gridnav.lists = [];
 
-      var buttonlist = new Gridnav("#list");
+      // instancia a lista
+      Gridnav("#list");
     </script>
   </body>
 </html>
