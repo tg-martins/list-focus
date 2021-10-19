@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body,
+      html {
+        background: black;
+        color: white;
+        font-size: 16px;
+      }
+      ul {
+        margin: 2em;
+        padding: 0;
+        clear: both;
+      }
+      li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        float: left;
+        display: block;
+      }
+
+      li {
+        width: calc(100% / 9);
+      }
+      li:nth-child(9n + 1):nth-last-child(1) {
+        width: 100%;
+      }
+      li:nth-child(9n + 1):nth-last-child(1) ~ li {
+        width: 100%;
+      }
+      li:nth-child(9n + 1):nth-last-child(2) {
+        width: 50%;
+      }
+      li:nth-child(9n + 1):nth-last-child(2) ~ li {
+        width: 50%;
+      }
+      li:nth-child(9n + 1):nth-last-child(3) {
+        width: calc(100% / 9);
+      }
+      li:nth-child(9n + 1):nth-last-child(3) ~ li {
+        width: calc(100% / 9);
+      }
+
+      button {
+        text-align: center;
+        text-decoration: none;
+        font-size: 30px;
+        display: inline-block;
+        background: white;
+        border: none;
+        margin: 5px;
+        padding: 20px 0;
+        width: 4em;
+        height: 4em;
+        transition: 300ms;
+      }
+      button:focus {
+        background: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="list" data-amount="9" data-element="button">
+      <li><button>0</button></li>
+      <li><button>1</button></li>
+      <li><button>2</button></li>
+      <li><button>3</button></li>
+      <li><button>4</button></li>
+      <li><button>5</button></li>
+      <li><button>6</button></li>
+      <li><button>7</button></li>
+      <li><button>8</button></li>
+      <li><button>9</button></li>
+      <li><button>10</button></li>
+      <li><button>11</button></li>
+      <li><button>12</button></li>
+      <li><button>13</button></li>
+      <li><button>14</button></li>
+      <li><button>15</button></li>
+      <li><button>16</button></li>
+      <li><button>17</button></li>
+      <li><button>18</button></li>
+      <li><button>19</button></li>
+      <li><button>20</button></li>
+      <li><button>21</button></li>
+      <li><button>22</button></li>
+      <li><button>23</button></li>
+      <li><button>24</button></li>
+      <li><button>25</button></li>
+      <li><button>26</button></li>
+      <li><button>27</button></li>
+      <li><button>28</button></li>
+      <li><button>29</button></li>
+      <li><button>30</button></li>
+      <li><button>31</button></li>
+    </ul>
+
+    <script>
+      var Gridnav = function (listelement) {
+        var that = this;
+        this.list =
+          typeof listelement === "string"
+            ? document.querySelector(listelement)
+            : listelement;
+        if (!this.list) {
+          throw Error("O item da lista não foi encontrado");
+        }
+        this.setcodes = function (amount) {
+          that.codes = {
+            39: 1,
+            68: 1,
+            65: -1,
+            37: -1,
+            87: -that.amount,
+            38: -that.amount,
+            83: that.amount,
+            40: that.amount,
+          };
+        };
+        if (!this.list.getAttribute("data-element")) {
+          this.element = this.list.firstElementChild.firstElementChild.tagName;
+        } else {
+          this.element = this.list.getAttribute("data-element").toUpperCase();
+        }
+        if (!this.list.getAttribute("data-amount")) {
+          this.amount = 6502;
+          this.setcodes(this.amount);
+        } else {
+          this.amount = +this.list.getAttribute("data-amount");
+          this.setcodes(this.amount);
+        }
+        this.setcodes(this.amount);
+        this.all = this.list.querySelectorAll(this.element);
+        this.keynav = function (ev) {
+          var t = ev.target;
+          var c;
+          var posx, posy;
+          if (t.tagName === that.element) {
+            for (var i = 0; i < that.all.length; i++) {
+              if (that.all[i] === t) {
+                c = i;
+                posx = that.all[c].offsetLeft;
+                posy = that.all[c].offsetTop;
+                break;
+              }
+            }
+            if (that.codes[ev.keyCode]) {
+              var kc = that.codes[ev.keyCode];
+              if (kc > -6502 && kc < 6502) {
+                if (that.all[c + kc]) {
+                  that.all[c + kc].focus();
+                }
+              } else {
+                var add = kc < 0 ? -1 : 1;
+                while (that.all[i]) {
+                  if (
+                    that.all[i].offsetLeft === posx &&
+                    that.all[i].offsetTop !== posy
+                  ) {
+                    that.all[i].focus();
+                    break;
+                  }
+                  i += add;
+                }
+              }
+            }
+          }
+        };
+        this.list.addEventListener("keyup", this.keynav);
+      };
+      Gridnav.lists = [];
+
+      var buttonlist = new Gridnav("#list");
+    </script>
+  </body>
+</html>
